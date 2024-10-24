@@ -134,11 +134,12 @@ resource "aws_ecs_task_definition" "main" {
 }
 
 resource "aws_ecs_service" "service-az1" {
-  name            = "${data.aws_ecs_cluster.cluster.cluster_name}-service-az1-codedeploy"
-  cluster         = data.aws_ecs_cluster.cluster.arn
-  task_definition = aws_ecs_task_definition.main.arn
-  desired_count   = var.service_desired_count
-  launch_type     = "FARGATE"
+  name                   = "${data.aws_ecs_cluster.cluster.cluster_name}-service-az1-codedeploy"
+  cluster                = data.aws_ecs_cluster.cluster.arn
+  task_definition        = aws_ecs_task_definition.main.arn
+  desired_count          = var.service_desired_count
+  launch_type            = "FARGATE"
+  enable_execute_command = true
 
   network_configuration {
     subnets         = [tolist(data.aws_subnets.private_subnets.ids)[0]]
@@ -157,11 +158,12 @@ resource "aws_ecs_service" "service-az1" {
 }
 
 resource "aws_ecs_service" "service-az2" {
-  name            = "${data.aws_ecs_cluster.cluster.cluster_name}-service-az2-codedeploy"
-  cluster         = data.aws_ecs_cluster.cluster.arn
-  task_definition = aws_ecs_task_definition.main.arn
-  desired_count   = var.service_desired_count
-  launch_type     = "FARGATE"
+  name                   = "${data.aws_ecs_cluster.cluster.cluster_name}-service-az2-codedeploy"
+  cluster                = data.aws_ecs_cluster.cluster.arn
+  task_definition        = aws_ecs_task_definition.main.arn
+  desired_count          = var.service_desired_count
+  launch_type            = "FARGATE"
+  enable_execute_command = true
 
   network_configuration {
     subnets         = [tolist(data.aws_subnets.private_subnets.ids)[1]]

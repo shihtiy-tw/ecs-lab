@@ -100,11 +100,13 @@ resource "aws_ecs_task_definition" "main" {
 }
 
 resource "aws_ecs_service" "main" {
-  name            = "${data.aws_ecs_cluster.cluster.cluster_name}-service"
-  cluster         = data.aws_ecs_cluster.cluster.arn
-  task_definition = aws_ecs_task_definition.main.arn
-  desired_count   = var.service_desired_count
-  launch_type     = "FARGATE"
+  name                   = "${data.aws_ecs_cluster.cluster.cluster_name}-service"
+  cluster                = data.aws_ecs_cluster.cluster.arn
+  task_definition        = aws_ecs_task_definition.main.arn
+  desired_count          = var.service_desired_count
+  launch_type            = "FARGATE"
+  enable_execute_command = true
+
 
   network_configuration {
     subnets         = data.aws_subnets.private_subnets.ids
