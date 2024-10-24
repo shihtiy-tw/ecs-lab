@@ -45,7 +45,8 @@ resource "aws_eip" "nat-eip" {
   domain = "vpc"
 
   tags = {
-    Name = "${var.vpc_name}-nat-eip"
+    Name        = "${var.vpc_name}-nat-eip"
+    auto-delete = "no"
   }
 }
 
