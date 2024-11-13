@@ -25,7 +25,7 @@ output "cluster_name" {
 
 output "service_name" {
   description = "Name of the ECS service"
-  value       = aws_ecs_service.service.name
+  value       = aws_ecs_service.service_nginx.name
 }
 
 # Outputs for aws_service_discovery_private_dns_namespace
@@ -47,22 +47,44 @@ output "namespace_hosted_zone" {
 # Outputs for aws_service_discovery_service
 output "service_id" {
   description = "The ID of the service discovery service"
-  value       = aws_service_discovery_service.this.id
+  value       = aws_service_discovery_service.fluentd.id
 }
 
 output "service_arn" {
   description = "The ARN of the service discovery service"
-  value       = aws_service_discovery_service.this.arn
+  value       = aws_service_discovery_service.fluentd.arn
 }
 
 output "service_discovery_name" {
   description = "The name of the service discovery service"
-  value       = aws_service_discovery_service.this.name
+  value       = aws_service_discovery_service.fluentd.name
 }
 
 output "service_dns_config" {
   description = "The DNS configuration of the service"
-  value       = aws_service_discovery_service.this.dns_config
+  value       = aws_service_discovery_service.fluentd.dns_config
+}
+
+
+# Outputs for aws_service_discovery_service
+output "service_id_nginx" {
+  description = "The ID of the service discovery service"
+  value       = aws_service_discovery_service.nginx.id
+}
+
+output "service_arn_nginx" {
+  description = "The ARN of the service discovery service"
+  value       = aws_service_discovery_service.nginx.arn
+}
+
+output "service_discovery_name_nginx" {
+  description = "The name of the service discovery service"
+  value       = aws_service_discovery_service.nginx.name
+}
+
+output "service_dns_config_nginx" {
+  description = "The DNS configuration of the service"
+  value       = aws_service_discovery_service.nginx.dns_config
 }
 
 

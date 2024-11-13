@@ -50,7 +50,7 @@ variable "task_memory" {
   default     = 512
 }
 
-variable "container_image" {
+variable "container_image_netshoot" {
   description = "The container image to use for the service"
   type        = string
   default     = "nicolaka/netshoot"
@@ -60,6 +60,12 @@ variable "container_image_fluentd" {
   description = "The container image to use for the service"
   type        = string
   default     = "fluent/fluentd:v1.17-debian-1"
+}
+
+variable "container_image_nginx" {
+  description = "The container image to use for the service"
+  type        = string
+  default     = "nginx"
 }
 
 variable "service_desired_count" {
@@ -74,10 +80,16 @@ variable "domain_name" {
   default     = "local.internal"
 }
 
-variable "service_name" {
+variable "service_name_fluentd" {
   description = "The name of the service discovery service"
   type        = string
-  default     = "service-discovery"
+  default     = "fluentd"
+}
+
+variable "service_name_nginx" {
+  description = "The name of the service discovery service"
+  type        = string
+  default     = "nginx"
 }
 
 variable "ttl" {
