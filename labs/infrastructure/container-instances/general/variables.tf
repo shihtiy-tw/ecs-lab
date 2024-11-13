@@ -47,7 +47,7 @@ variable "launch_template_name" {
 variable "instance_type" {
   description = "EC2 instance type"
   type        = string
-  default     = "t3.micro"
+  default     = "m5.xlarge"
 }
 
 # variable "security_group_ids" {
