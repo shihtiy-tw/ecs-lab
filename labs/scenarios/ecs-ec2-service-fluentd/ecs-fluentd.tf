@@ -27,16 +27,22 @@ resource "aws_ecs_task_definition" "fluentd" {
 }
 
 resource "aws_ecs_service" "fluentd-service" {
-  name                   = "${data.aws_ecs_cluster.cluster.cluster_name}-service-fluentd"
-  cluster                = data.aws_ecs_cluster.cluster.arn
-  task_definition        = aws_ecs_task_definition.fluentd.arn
-  desired_count          = var.service_desired_count
+  name            = "${data.aws_ecs_cluster.cluster.cluster_name}-service-fluentd"
+  cluster         = data.aws_ecs_cluster.cluster.arn
+  task_definition = aws_ecs_task_definition.fluentd.arn
+  # desired_count          = var.service_desired_count
+  desired_count          = 1
   enable_execute_command = true
   launch_type            = "EC2"
 
   network_configuration {
     subnets         = data.aws_subnets.private_subnets.ids
     security_groups = [aws_security_group.ecs.id]
+  }
+
+  placement_constraints {
+    type       = "memberOf"
+    expression = "attribute:ecs.instance-type in [m5a.xlarge]"
   }
 
   service_registries {
