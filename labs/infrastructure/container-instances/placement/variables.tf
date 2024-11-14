@@ -36,7 +36,7 @@ variable "desired_capacity" {
 variable "launch_template_name" {
   description = "Name of the launch template"
   type        = string
-  default     = "tf-ecs-lab-launch-template"
+  default     = "tf-ecs-lab-launch-template-placement-placement"
 }
 
 # variable "ami_id" {
@@ -47,7 +47,7 @@ variable "launch_template_name" {
 variable "instance_type" {
   description = "EC2 instance type"
   type        = string
-  default     = "m5.xlarge"
+  default     = "m5a.xlarge"
 }
 
 # variable "security_group_ids" {
