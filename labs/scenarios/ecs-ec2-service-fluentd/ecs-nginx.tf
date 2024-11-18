@@ -20,6 +20,13 @@ resource "aws_ecs_task_definition" "nginx" {
           hostPort      = 80
         }
       ]
+      logConfiguration = {
+        logDriver = "fluentd",
+        options = {
+          fluentd-address = "${var.service_name_fluentd}.${var.domain_name}",
+          tag             = "nginx"
+        }
+      }
     }
   ])
 }
