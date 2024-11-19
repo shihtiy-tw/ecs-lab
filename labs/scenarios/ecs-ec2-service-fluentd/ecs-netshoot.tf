@@ -39,4 +39,12 @@ resource "aws_ecs_service" "service_netshoot" {
   #   subnets         = data.aws_subnets.private_subnets.ids
   #   security_groups = [aws_security_group.ecs.id]
   # }
+  placement_constraints {
+    type       = "memberOf"
+    expression = "not(task:group == service:${data.aws_ecs_cluster.cluster.cluster_name}-service-fluentd)"
+  }
+
+  depends_on = [
+    aws_ecs_service.fluentd-service
+  ]
 }

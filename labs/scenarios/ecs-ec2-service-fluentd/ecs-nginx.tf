@@ -48,4 +48,13 @@ resource "aws_ecs_service" "service_nginx" {
   service_registries {
     registry_arn = aws_service_discovery_service.nginx.arn
   }
+
+  placement_constraints {
+    type       = "memberOf"
+    expression = "not(task:group == service:${data.aws_ecs_cluster.cluster.cluster_name}-service-fluentd)"
+  }
+
+  depends_on = [
+    aws_ecs_service.fluentd-service
+  ]
 }
