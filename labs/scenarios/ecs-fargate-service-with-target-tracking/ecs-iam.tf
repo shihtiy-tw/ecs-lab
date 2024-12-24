@@ -62,6 +62,6 @@ resource "aws_iam_role" "ecs_tasks_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_tasks_exec_role" {
-  role       = aws_iam_role.ecs_tasks_execution_role.name
+  role       = aws_iam_role.ecs_tasks_role.name
   policy_arn = aws_iam_policy.ecs_tasks_ecs_exec_policy.arn
 }
