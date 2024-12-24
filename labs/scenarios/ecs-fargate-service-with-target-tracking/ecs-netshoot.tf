@@ -30,7 +30,7 @@ resource "aws_ecs_service" "service_netshoot" {
   # desired_count          = var.service_desired_count
   desired_count          = 1
   enable_execute_command = true
-  launch_type            = "EC2"
+  launch_type            = "FARGATE"
 
   network_configuration {
     subnets         = data.aws_subnets.private_subnets.ids
