@@ -63,8 +63,9 @@ resource "aws_ecs_service" "main" {
     service {
       discovery_name = "nginx"
       port_name      = "nginx-port-80"
+      # If the server side change the DNS name, the client side needs to be force deployed.
       client_alias {
-        dns_name = "nginx"
+        dns_name = "nginx.aws"
         port     = 80
       }
     }
