@@ -14,8 +14,7 @@ resource "aws_ecs_task_definition" "netshoot" {
       memoryReservatino = 128
       essential         = true
       entrypoint        = ["sh", "-c"]
-      # command           = ["while true; do curl -I ${aws_lb.main.dns_name}; done"]
-      command = ["sleep 7200"]
+      command           = ["while true; do curl -vI ${var.dns_name}; sleep 1; done"]
       logConfiguration = {
         logDriver = "awslogs"
         options = {

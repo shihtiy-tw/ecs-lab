@@ -78,7 +78,7 @@ resource "aws_ecs_service" "main" {
       port_name      = "nginx-port-80"
       # If the server side change the DNS name, the client side needs to be force deployed.
       client_alias {
-        dns_name = "nginx.aws"
+        dns_name = var.dns_name
         port     = 80
       }
     }

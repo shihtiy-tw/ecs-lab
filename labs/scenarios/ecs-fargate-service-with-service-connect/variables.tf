@@ -79,6 +79,12 @@ variable "domain_name" {
   default     = "local.internal"
 }
 
+variable "dns_name" {
+  description = "The name of the DNS for server"
+  type        = string
+  default     = "nginx.aws"
+}
+
 variable "service_name_nginx" {
   description = "The name of the service discovery service"
   type        = string
