@@ -16,6 +16,14 @@ resource "aws_ecs_task_definition" "netshoot" {
       entrypoint        = ["sh", "-c"]
       # command           = ["while true; do curl -I ${aws_lb.main.dns_name}; done"]
       command = ["sleep 7200"]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.main.name
+          awslogs-region        = terraform.workspace
+          awslogs-stream-prefix = "netshoot-${var.scenario_name}"
+        }
+      }
     }
   ])
 
@@ -36,6 +44,14 @@ resource "aws_ecs_service" "service_netshoot" {
   service_connect_configuration {
     enabled   = true
     namespace = aws_service_discovery_private_dns_namespace.private.arn
+    log_configuration {
+      log_driver = "awslogs"
+      options = {
+        awslogs-group         = aws_cloudwatch_log_group.main.name
+        awslogs-region        = terraform.workspace
+        awslogs-stream-prefix = "netshoot-envoy"
+      }
+    }
   }
 
   network_configuration {

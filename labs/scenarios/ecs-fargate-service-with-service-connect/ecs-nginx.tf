@@ -1,3 +1,8 @@
+
+resource "aws_cloudwatch_log_group" "main" {
+  name = "tf-${var.scenario_name}"
+}
+
 resource "aws_security_group" "ecs" {
   name        = "${data.aws_ecs_cluster.cluster.cluster_name}-ecs-sg-${var.scenario_name}"
   description = "Security group for ALB"
@@ -45,6 +50,14 @@ resource "aws_ecs_task_definition" "main" {
           name          = "nginx-port-80"
         }
       ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.main.name
+          awslogs-region        = terraform.workspace
+          awslogs-stream-prefix = "nginx-${var.scenario_name}"
+        }
+      }
     }
   ])
 }
@@ -67,6 +80,14 @@ resource "aws_ecs_service" "main" {
       client_alias {
         dns_name = "nginx.aws"
         port     = 80
+      }
+    }
+    log_configuration {
+      log_driver = "awslogs"
+      options = {
+        awslogs-group         = aws_cloudwatch_log_group.main.name
+        awslogs-region        = terraform.workspace
+        awslogs-stream-prefix = "nginx-envoy"
       }
     }
   }
