@@ -3,11 +3,6 @@
 #   type        = string
 #   default     = terraform.workspace
 # }
-variable "scenario_name" {
-  description = "Name of the Scenario"
-  type        = string
-  default     = "alb"
-}
 
 variable "vpc_name" {
   description = "Name of the VPC"
@@ -36,6 +31,11 @@ variable "cluster_name" {
   default     = "tf-ecs-lab"
 }
 
+variable "scenario_name" {
+  description = "Name of the Scenario"
+  type        = string
+  default     = "firelens-firehose"
+}
 
 # variable "tags" {
 #   description = "A map of tags to add to the ECS cluster"
@@ -61,9 +61,58 @@ variable "container_image" {
   default     = "nginx"
 }
 
+variable "container_image_netshoot" {
+  description = "The container image to use for the service"
+  type        = string
+  default     = "nicolaka/netshoot"
+}
+
 variable "service_desired_count" {
   description = "The number of instances of the task definition to place and keep running"
   type        = number
   default     = 2
 }
 
+variable "domain_name" {
+  description = "The name of the private DNS namespace"
+  type        = string
+  default     = "local.internal"
+}
+
+variable "dns_name" {
+  description = "The name of the DNS for server"
+  type        = string
+  default     = "nginx.aws"
+}
+
+variable "service_name_nginx" {
+  description = "The name of the service discovery service"
+  type        = string
+  default     = "nginx"
+}
+
+variable "ttl" {
+  description = "The TTL value for DNS records"
+  type        = number
+  default     = 300
+}
+
+variable "type" {
+  description = "The type of DNS record (A or SRV)"
+  type        = string
+  default     = "A"
+  validation {
+    condition     = contains(["A", "SRV"], var.type)
+    error_message = "Type must be either 'A' or 'SRV'."
+  }
+}
+
+variable "routing_policy" {
+  description = "The routing policy for the DNS records (MULTIVALUE or WEIGHTED)"
+  type        = string
+  default     = "MULTIVALUE"
+  validation {
+    condition     = contains(["MULTIVALUE", "WEIGHTED"], var.routing_policy)
+    error_message = "Routing policy must be either 'MULTIVALUE' or 'WEIGHTED'."
+  }
+}

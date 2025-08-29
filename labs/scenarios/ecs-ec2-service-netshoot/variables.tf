@@ -3,11 +3,6 @@
 #   type        = string
 #   default     = terraform.workspace
 # }
-variable "scenario_name" {
-  description = "Name of the Scenario"
-  type        = string
-  default     = "alb"
-}
 
 variable "vpc_name" {
   description = "Name of the VPC"
@@ -58,12 +53,23 @@ variable "task_memory" {
 variable "container_image" {
   description = "The container image to use for the service"
   type        = string
-  default     = "nginx"
+  default     = "nicolaka/netshoot"
 }
 
 variable "service_desired_count" {
   description = "The number of instances of the task definition to place and keep running"
   type        = number
-  default     = 2
+  default     = 1
 }
+
+
+# variable "blue_lb_target_group_name" {
+#   type        = string
+#   description = "Name of the blue target group."
+# }
+#
+# variable "green_lb_target_group_name" {
+#   type        = string
+#   description = "Name of the green target group."
+# }
 
